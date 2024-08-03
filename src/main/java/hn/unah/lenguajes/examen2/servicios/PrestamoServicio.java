@@ -1,5 +1,7 @@
 package hn.unah.lenguajes.examen2.servicios;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,17 @@ public class PrestamoServicio {
 
     @Autowired
     private CuotasRepositorio cuotasRepositorio;
+
+    public Prestamo obtenerPorId(long codigoPrestamo) {
+
+        Prestamo prestamo = this.prestamoRepositorio.findById(codigoPrestamo).get();
+
+        List<Cuotas> cuotas = this.cuotasRepositorio.getByPrestamo(prestamo);
+
+        // prestamo.setCuotas(cuotas);
+
+        return this.prestamoRepositorio.findById(codigoPrestamo).get();
+    }
 
     public Prestamo crearPrestamo(String dni, Prestamo prestamo) {
 
